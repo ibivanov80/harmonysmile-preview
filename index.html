@@ -609,7 +609,7 @@
        Текст не растёт и не выдавливает лицо — рот всегда виден и улыбается на месте.
        Кнопки CTA — в нижней липкой панели .mcta (всегда на экране), в hero не дублируем. */
     .hero-main{display:flex;flex-direction:column;height:100svh;min-height:100svh;gap:10px;margin:0;
-               padding:calc(70px + env(safe-area-inset-top)) 0 6px}
+               padding:calc(64px + env(safe-area-inset-top)) 0 calc(68px + env(safe-area-inset-bottom))}
     .hero-left{flex:0 0 auto;padding:0;justify-content:flex-start}
     .hero-left .lede,.hero-left .note,.hero-cta,.hero-foot{display:none}
     .hero-smile{flex:1 1 auto;min-height:0;align-self:stretch}
@@ -672,8 +672,17 @@
     /* pay-strip и steps — горизонтальные разделители между рядами */
     .pay,.step{border-bottom:1px solid var(--hairline-strong)}
     .pay:nth-last-child(-n+2),.step:nth-last-child(-n+2){border-bottom:0}
+    /* ── компактная шапка на мобиле (логотип не на 4 строки) ── */
+    .nav{padding:9px clamp(16px,4vw,56px)}
+    .logo{gap:9px}
+    .logo .mark{width:30px;height:26px}
+    .logo .wm{font-size:17px;white-space:nowrap}
+    .logo .tag{display:none}
+    /* ── нижняя липкая плашка: компактная, в одну строку ── */
+    .mcta{padding:8px 12px calc(8px + env(safe-area-inset-bottom));gap:8px}
+    .mcta .btn{min-height:46px;font-size:13.5px;padding:9px 8px;white-space:nowrap;gap:6px}
     /* sticky-CTA: safe-area + не просвечивать сквозь меню */
-    body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+    body{padding-bottom:calc(70px + env(safe-area-inset-bottom))}
     body.menu-open .mcta{display:none}
     /* пианино: выше клавиатура — удобнее попадать пальцем */
     .kb{height:158px}
