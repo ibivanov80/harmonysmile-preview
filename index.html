@@ -601,21 +601,20 @@
     nav.desk,.head-tel{display:none}
     .burger{display:flex}
     .hero{padding-top:0}
-    .hero-pin{height:205vh}
+    .hero-pin{height:200vh}
     .hero-stage{padding:0;min-height:100svh}
     .stage-wrap{padding:0}
     .kicker-row{display:none}
-    /* мобильный hero: компактный текст сверху + панель улыбки на остаток экрана (видна целиком) */
-    .hero-main{display:flex;flex-direction:column;min-height:100svh;gap:14px;margin:0;
-               padding:calc(74px + env(safe-area-inset-top)) 0 calc(14px + env(safe-area-inset-bottom))}
-    .hero-left{padding:0}
-    .hero-left .lede{max-width:40ch;font-size:15px;margin-bottom:0}
-    .hero-left .note{display:none}
-    .hero-cta{margin-top:14px;width:100%}
-    .hero-cta .btn{flex:1;min-width:0}
-    .hero-foot{display:none}
+    /* мобильный hero: ТОЛЬКО заголовок (фикс. высота) + большая неподвижная панель улыбки.
+       Текст не растёт и не выдавливает лицо — рот всегда виден и улыбается на месте.
+       Кнопки CTA — в нижней липкой панели .mcta (всегда на экране), в hero не дублируем. */
+    .hero-main{display:flex;flex-direction:column;height:100svh;min-height:100svh;gap:10px;margin:0;
+               padding:calc(70px + env(safe-area-inset-top)) 0 6px}
+    .hero-left{flex:0 0 auto;padding:0;justify-content:flex-start}
+    .hero-left .lede,.hero-left .note,.hero-cta,.hero-foot{display:none}
     .hero-smile{flex:1 1 auto;min-height:0;align-self:stretch}
     .hero-smile .cv{height:100%}
+    .hero-smile canvas{filter:grayscale(1) contrast(1.08)}
     .dir-head{grid-template-columns:36px 1fr 44px;gap:12px}
     .dir-head .dh,.dir-head .dp{display:none}
     .dir-body{grid-template-columns:1fr;padding-left:0;gap:24px}
