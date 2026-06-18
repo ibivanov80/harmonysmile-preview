@@ -608,9 +608,9 @@
     /* мобильный hero: ТОЛЬКО заголовок (фикс. высота) + большая неподвижная панель улыбки.
        Текст не растёт и не выдавливает лицо — рот всегда виден и улыбается на месте.
        Кнопки CTA — в нижней липкой панели .mcta (всегда на экране), в hero не дублируем. */
-    .hero-main{display:flex;flex-direction:column;height:100svh;min-height:100svh;gap:10px;margin:0;
-               padding:calc(64px + env(safe-area-inset-top)) 0 calc(68px + env(safe-area-inset-bottom))}
-    .hero-left{flex:0 0 auto;padding:0;justify-content:flex-start}
+    .hero-main{display:flex;flex-direction:column;height:100svh;min-height:100svh;gap:12px;margin:0;
+               padding:calc(76px + env(safe-area-inset-top)) 0 calc(66px + env(safe-area-inset-bottom))}
+    .hero-left{flex:0 0 auto;padding:0 clamp(20px,5vw,28px);justify-content:flex-start}
     .hero-left .lede,.hero-left .note,.hero-cta,.hero-foot{display:none}
     .hero-smile{flex:1 1 auto;min-height:0;align-self:stretch}
     .hero-smile .cv{height:100%}
@@ -678,6 +678,8 @@
     .logo .mark{width:30px;height:26px}
     .logo .wm{font-size:17px;white-space:nowrap}
     .logo .tag{display:none}
+    .head-right{gap:12px}
+    .head-right .btn{min-height:40px;padding:9px 16px;font-size:13px}
     /* ── нижняя липкая плашка: компактная, в одну строку ── */
     .mcta{padding:8px 12px calc(8px + env(safe-area-inset-bottom));gap:8px}
     .mcta .btn{min-height:46px;font-size:13.5px;padding:9px 8px;white-space:nowrap;gap:6px}
