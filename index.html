@@ -647,6 +647,43 @@
     .rv{opacity:1;transform:none}
     .prv{opacity:1;transform:none}
   }
+
+  /* ============ МОБИЛЬНАЯ ВЫЛИЗКА (QA-фиксы) ============ */
+  html{scroll-padding-top:72px}                 /* якоря не прячутся под шапкой */
+  header{transition:transform .35s var(--ease),background .4s var(--ease),box-shadow .4s var(--ease)}
+  header.hide{transform:translateY(-100%)}       /* авто-скрытие шапки при скролле вниз */
+  @media(max-width:1024px){
+    html{scroll-padding-top:60px}
+    section{padding:clamp(46px,9vw,64px) 0}
+    /* заголовки секций — в колонку (главный фикс переполнения) */
+    .shead{display:block;margin-bottom:clamp(24px,6vw,38px)}
+    .shead > div,.shead h2,.shead .side,.shead .idx{display:block;max-width:none}
+    .shead h2{margin:8px 0 10px}
+    .shead h2 br{display:none}
+    /* кейсы — данные в 2 колонки, без nowrap */
+    .case-data{grid-template-columns:1fr 1fr;gap:16px 22px}
+    .case-data .k{white-space:normal;font-size:clamp(18px,5vw,24px)}
+    /* статистика — крупное число не упирается в край */
+    .stat .num{font-size:clamp(28px,8vw,42px)}
+    /* формы — 16px против авто-зума iOS Safari */
+    .q-form input,.c-form input{font-size:16px}
+    /* квиз: «назад» — нормальный тач-таргет */
+    .q-back{min-height:44px;display:inline-flex;align-items:center;padding:10px 2px}
+    .q-nav{align-items:center}
+    /* pay-strip и steps — горизонтальные разделители между рядами */
+    .pay,.step{border-bottom:1px solid var(--hairline-strong)}
+    .pay:nth-last-child(-n+2),.step:nth-last-child(-n+2){border-bottom:0}
+    /* sticky-CTA: safe-area + не просвечивать сквозь меню */
+    body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+    body.menu-open .mcta{display:none}
+    /* пианино: выше клавиатура — удобнее попадать пальцем */
+    .kb{height:158px}
+    /* длинные серифные слова в услугах — перенос вместо вылета */
+    .dir-head .dt{overflow-wrap:anywhere}
+    /* прайс-строки и s-note — гарантированный перенос */
+    .prow{gap:10px 14px}
+    .prow .pn{min-width:0}
+  }
 </style>
 </head>
 <body>
@@ -1055,7 +1092,7 @@
     <div class="shead rv">
       <div>
         <span class="idx">02 — Цены</span>
-        <h2>Честные цены<br>«под ключ»</h2>
+        <h2>Честные цены «под ключ»</h2>
       </div>
       <p class="side">Стоимость, озвученная на консультации, фиксируется в договоре и не меняется в процессе лечения.</p>
     </div>
@@ -1505,7 +1542,19 @@
 
   /* header */
   var hdr = document.getElementById('hdr');
-  addEventListener('scroll', function(){ hdr.classList.toggle('scrolled', scrollY > 30); }, {passive:true});
+  var lastY = 0, hTicking = false;
+  function onHdrScroll(){
+    var y = scrollY;
+    hdr.classList.toggle('scrolled', y > 30);
+    // авто-скрытие: прячем при скролле вниз, показываем при скролле вверх; не прячем у самого верха и при открытом меню
+    if (document.body.classList.contains('menu-open')) { hdr.classList.remove('hide'); }
+    else if (y > 240 && y > lastY + 4) { hdr.classList.add('hide'); }
+    else if (y < lastY - 4 || y < 120) { hdr.classList.remove('hide'); }
+    lastY = y;
+  }
+  addEventListener('scroll', function(){
+    if (!hTicking) { hTicking = true; requestAnimationFrame(function(){ hTicking = false; onHdrScroll(); }); }
+  }, {passive:true});
 
   /* mobile menu */
   var burger = document.getElementById('burger'), mmenu = document.getElementById('mmenu');
