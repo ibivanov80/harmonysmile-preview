@@ -359,6 +359,16 @@
   .s-note{margin-top:22px;font-family:var(--mono);font-size:12px;color:var(--ink-50);letter-spacing:.06em}
   .s-note a{color:var(--accent);border-bottom:1px solid currentColor;padding-bottom:1px}
 
+  /* группы услуг (операционная / каждому) */
+  .svc-group{margin-bottom:clamp(44px,6vw,88px)}
+  .svc-group:last-of-type{margin-bottom:0}
+  .op-banner{position:relative;margin:0 0 clamp(6px,1vw,12px);border:1px solid var(--hairline-strong);overflow:hidden;background:var(--paper-2)}
+  .op-banner img{width:100%;display:block;aspect-ratio:16/7;object-fit:cover}
+  .op-banner figcaption{position:absolute;left:0;bottom:0;right:0;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    padding:clamp(14px,2vw,22px) clamp(16px,2vw,26px);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--paper);background:linear-gradient(to top,rgba(17,17,16,.82),rgba(17,17,16,0))}
+  .op-banner figcaption b{color:#D9A7AF;font-weight:500}
+
   /* directions (расширенные услуги) */
   .dirs{border-top:1px solid var(--hairline-strong)}
   .dir-item{border-bottom:1px solid var(--hairline)}
@@ -693,6 +703,10 @@
     /* прайс-строки и s-note — гарантированный перенос */
     .prow{gap:10px 14px}
     .prow .pn{min-width:0}
+    /* группы услуг + баннер операционной на мобиле */
+    .svc-group{margin-bottom:clamp(34px,9vw,52px)}
+    .op-banner img{aspect-ratio:4/3}
+    .op-banner figcaption{flex-direction:column;gap:5px;font-size:10px;padding:14px 16px}
   }
 </style>
 </head>
@@ -806,13 +820,19 @@
 <!-- SERVICES -->
 <section id="services" aria-label="Услуги">
   <div class="wrap">
-    <div class="shead rv">
-      <span class="idx">01 — Услуги</span>
-      <h2>Полный цикл лечения</h2>
-      <p class="side">От профилактики до челюстно-лицевой хирургии и ортогнатики. Берёмся за сложные случаи: у нас есть собственная операционная и лечение во сне — такое встретишь в считаных клиниках Петербурга.</p>
-    </div>
-    <div class="dirs rv">
-      
+    <div class="svc-group rv">
+      <div class="shead">
+        <div>
+          <span class="idx">01 — Хирургия и операционная</span>
+          <h2>Берёмся за то, от чего отказываются</h2>
+        </div>
+        <p class="side">Собственная операционная — большая редкость в стоматологии. Она и позволяет нам делать сложное: челюстно-лицевую хирургию, ортогнатику и лечение во сне.</p>
+      </div>
+      <figure class="op-banner">
+        <img class="bw" loading="lazy" src="assets/operating-room.jpg" alt="Собственная операционная клиники «Гармония Улыбки»: хирургическая бригада, операционный свет, мониторинг и 3D-навигация">
+        <figcaption><span>Собственная операционная · бригада · мониторинг · 3D-навигация</span><span><b>лечим сложное у себя</b> — без направления в стационар</span></figcaption>
+      </figure>
+      <div class="dirs">
       <div class="dir-item rv">
         <button class="dir-head" type="button" aria-expanded="false" data-dir>
           <span class="dn">01</span>
@@ -878,29 +898,29 @@
       <div class="dir-item rv">
         <button class="dir-head" type="button" aria-expanded="false" data-dir>
           <span class="dn">03</span>
-          <span class="dwrap"><span class="dt">Лечение зубов</span><span class="dh">Кариес не проходит сам — но и удалять зуб почти никогда не нужно</span></span>
-          <span class="dp">от 11 000 ₽</span>
+          <span class="dwrap"><span class="dt">Лечение во сне</span><span class="dh">Спокойно и без страха — в медикаментозном сне под контролем</span></span>
+          <span class="dp">по плану лечения</span>
           <span class="dpl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg></span>
         </button>
         <div class="dir-panel"><div><div class="dir-body">
           <div>
-            <p class="lede">Мы лечим, чтобы сохранить ваш собственный зуб, а не заменить его. Кариес и пульпит — под микроскопом и с коффердамом: видим то, что не видно глазу, и работаем точно, бережно и без боли.</p>
+            <p class="lede">Если вы годами откладывали из-за страха или нужно сделать большой объём за один раз — мы лечим во сне. Вы расслаблены и спокойны, а врач делает всё необходимое за одно посещение. В собственной операционной, под постоянным наблюдением.</p>
             <div class="dir-bens">
-            <div class="dir-ben"><span class="bm"></span><div><b>Сохраняем натуральный зуб</b><span>Лечим даже сложные случаи и каналы, чтобы зуб служил вам годами. Удаление — только когда спасти действительно нельзя.</span></div></div>
-            <div class="dir-ben"><span class="bm"></span><div><b>Микроскоп и коффердам</b><span>Увеличение помогает найти и пролечить все каналы, а коффердам изолирует зуб от слюны — лечение получается чистым и надёжным.</span></div></div>
-            <div class="dir-ben"><span class="bm"></span><div><b>Цена известна заранее и зафиксирована в договоре</b><span>После осмотра и снимка называем точную стоимость до начала лечения. Сумма в договоре не меняется.</span></div></div>
+            <div class="dir-ben"><span class="bm"></span><div><b>Для тех, кто боится</b><span>Панический страх, рвотный рефлекс, неудачный прошлый опыт — во сне всё проходит спокойно, без стресса и без боли.</span></div></div>
+            <div class="dir-ben"><span class="bm"></span><div><b>Большой объём за один раз</b><span>То, на что обычно уходят месяцы и десяток визитов, — за одно посещение, пока вы спите.</span></div></div>
+            <div class="dir-ben"><span class="bm"></span><div><b>Собственная операционная</b><span>Лечение проходит в оборудованной операционной под постоянным контролем — безопасно и предсказуемо.</span></div></div>
             </div>
           </div>
           <div class="dir-side">
-            <div class="pmeta">Лечение кариеса — от 11 000 ₽. Итог зависит от объёма и становится известен после осмотра и снимка; озвученную цену фиксируем в договоре. Доступна рассрочка 0% и налоговый вычет 13%.</div>
+            <div class="pmeta">Возможность лечения во сне и объём определяются после консультации и обследования. Стоимость зависит от плана и фиксируется в договоре. Рассрочка 0%, вычет 13%.</div>
             <ol class="steps">
-              <li>Осмотр и снимок — находим все проблемные зубы и показываем, что происходит</li>
-              <li>План и точная стоимость до начала лечения, которую закрепляем в договоре</li>
-              <li>Лечение под микроскопом с коффердамом и анестезией — бережно, обычно за 1–2 визита</li>
-              <li>Контроль и рекомендации, чтобы результат держался долгие годы</li>
+              <li>Консультация, КТ и обследование — оцениваем, что можно сделать за один сон</li>
+              <li>Подготовка: необходимые анализы и план лечения</li>
+              <li>День лечения: засыпаете — всё необходимое делаем за одно посещение</li>
+              <li>Пробуждение под наблюдением и понятные рекомендации</li>
             </ol>
             <div class="dir-cta">
-              <a class="btn btn-ink" href="#calc" data-service="Лечение зубов">Рассчитать стоимость</a>
+              <a class="btn btn-ink" href="#calc" data-service="Лечение во сне">Рассчитать стоимость</a>
               <a class="btn btn-line" href="#contact">Записаться</a>
             </div>
           </div>
@@ -937,32 +957,44 @@
           </div>
         </div></div></div>
       </div>
+      </div>
+    </div>
+
+    <div class="svc-group rv">
+      <div class="shead">
+        <div>
+          <span class="idx">— Каждому</span>
+          <h2>И всё, что нужно каждому</h2>
+        </div>
+        <p class="side">Терапия, гигиена, исправление прикуса, протезирование, детская стоматология — бережно, понятно и с фиксированной ценой.</p>
+      </div>
+      <div class="dirs">
       <div class="dir-item rv">
         <button class="dir-head" type="button" aria-expanded="false" data-dir>
-          <span class="dn">05</span>
-          <span class="dwrap"><span class="dt">Лечение во сне</span><span class="dh">Спокойно и без страха — в медикаментозном сне под контролем</span></span>
-          <span class="dp">по плану лечения</span>
+          <span class="dn">01</span>
+          <span class="dwrap"><span class="dt">Лечение зубов</span><span class="dh">Кариес не проходит сам — но и удалять зуб почти никогда не нужно</span></span>
+          <span class="dp">от 11 000 ₽</span>
           <span class="dpl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg></span>
         </button>
         <div class="dir-panel"><div><div class="dir-body">
           <div>
-            <p class="lede">Если вы годами откладывали из-за страха или нужно сделать большой объём за один раз — мы лечим во сне. Вы расслаблены и спокойны, а врач делает всё необходимое за одно посещение. В собственной операционной, под постоянным наблюдением.</p>
+            <p class="lede">Мы лечим, чтобы сохранить ваш собственный зуб, а не заменить его. Кариес и пульпит — под микроскопом и с коффердамом: видим то, что не видно глазу, и работаем точно, бережно и без боли.</p>
             <div class="dir-bens">
-            <div class="dir-ben"><span class="bm"></span><div><b>Для тех, кто боится</b><span>Панический страх, рвотный рефлекс, неудачный прошлый опыт — во сне всё проходит спокойно, без стресса и без боли.</span></div></div>
-            <div class="dir-ben"><span class="bm"></span><div><b>Большой объём за один раз</b><span>То, на что обычно уходят месяцы и десяток визитов, — за одно посещение, пока вы спите.</span></div></div>
-            <div class="dir-ben"><span class="bm"></span><div><b>Собственная операционная</b><span>Лечение проходит в оборудованной операционной под постоянным контролем — безопасно и предсказуемо.</span></div></div>
+            <div class="dir-ben"><span class="bm"></span><div><b>Сохраняем натуральный зуб</b><span>Лечим даже сложные случаи и каналы, чтобы зуб служил вам годами. Удаление — только когда спасти действительно нельзя.</span></div></div>
+            <div class="dir-ben"><span class="bm"></span><div><b>Микроскоп и коффердам</b><span>Увеличение помогает найти и пролечить все каналы, а коффердам изолирует зуб от слюны — лечение получается чистым и надёжным.</span></div></div>
+            <div class="dir-ben"><span class="bm"></span><div><b>Цена известна заранее и зафиксирована в договоре</b><span>После осмотра и снимка называем точную стоимость до начала лечения. Сумма в договоре не меняется.</span></div></div>
             </div>
           </div>
           <div class="dir-side">
-            <div class="pmeta">Возможность лечения во сне и объём определяются после консультации и обследования. Стоимость зависит от плана и фиксируется в договоре. Рассрочка 0%, вычет 13%.</div>
+            <div class="pmeta">Лечение кариеса — от 11 000 ₽. Итог зависит от объёма и становится известен после осмотра и снимка; озвученную цену фиксируем в договоре. Доступна рассрочка 0% и налоговый вычет 13%.</div>
             <ol class="steps">
-              <li>Консультация, КТ и обследование — оцениваем, что можно сделать за один сон</li>
-              <li>Подготовка: необходимые анализы и план лечения</li>
-              <li>День лечения: засыпаете — всё необходимое делаем за одно посещение</li>
-              <li>Пробуждение под наблюдением и понятные рекомендации</li>
+              <li>Осмотр и снимок — находим все проблемные зубы и показываем, что происходит</li>
+              <li>План и точная стоимость до начала лечения, которую закрепляем в договоре</li>
+              <li>Лечение под микроскопом с коффердамом и анестезией — бережно, обычно за 1–2 визита</li>
+              <li>Контроль и рекомендации, чтобы результат держался долгие годы</li>
             </ol>
             <div class="dir-cta">
-              <a class="btn btn-ink" href="#calc" data-service="Лечение во сне">Рассчитать стоимость</a>
+              <a class="btn btn-ink" href="#calc" data-service="Лечение зубов">Рассчитать стоимость</a>
               <a class="btn btn-line" href="#contact">Записаться</a>
             </div>
           </div>
@@ -970,7 +1002,7 @@
       </div>
       <div class="dir-item rv">
         <button class="dir-head" type="button" aria-expanded="false" data-dir>
-          <span class="dn">06</span>
+          <span class="dn">02</span>
           <span class="dwrap"><span class="dt">Гигиена</span><span class="dh">Налёт, камень, желтизна от кофе — снимем за час, бережно и без боли</span></span>
           <span class="dp">от 6 000 ₽ (по акции 4 990 ₽)</span>
           <span class="dpl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg></span>
@@ -1001,7 +1033,7 @@
       </div>
       <div class="dir-item rv">
         <button class="dir-head" type="button" aria-expanded="false" data-dir>
-          <span class="dn">07</span>
+          <span class="dn">03</span>
           <span class="dwrap"><span class="dt">Брекеты и элайнеры</span><span class="dh">Ровные зубы без «железа напоказ» — с понятным планом и ценой заранее</span></span>
           <span class="dp">брекеты от 55 000 ₽/челюсть</span>
           <span class="dpl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg></span>
@@ -1032,7 +1064,7 @@
       </div>
       <div class="dir-item rv">
         <button class="dir-head" type="button" aria-expanded="false" data-dir>
-          <span class="dn">08</span>
+          <span class="dn">04</span>
           <span class="dwrap"><span class="dt">Протезирование</span><span class="dh">Вернём крепкие зубы и красивую улыбку — спокойно, без боли и сюрпризов в цене</span></span>
           <span class="dp">от 35 500 ₽</span>
           <span class="dpl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg></span>
@@ -1063,7 +1095,7 @@
       </div>
       <div class="dir-item rv">
         <button class="dir-head" type="button" aria-expanded="false" data-dir>
-          <span class="dn">09</span>
+          <span class="dn">05</span>
           <span class="dwrap"><span class="dt">Виниры и эстетика</span><span class="dh">Ровные, белые, естественные зубы — и улыбка, которую не хочется прятать</span></span>
           <span class="dp">винир от 42 500 ₽</span>
           <span class="dpl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg></span>
@@ -1094,7 +1126,7 @@
       </div>
       <div class="dir-item rv">
         <button class="dir-head" type="button" aria-expanded="false" data-dir>
-          <span class="dn">10</span>
+          <span class="dn">06</span>
           <span class="dwrap"><span class="dt">Детям</span><span class="dh">Чтобы ребёнок шёл к врачу сам, а не со слезами</span></span>
           <span class="dp">от 900 ₽</span>
           <span class="dpl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg></span>
@@ -1125,7 +1157,7 @@
       </div>
       <div class="dir-item rv">
         <button class="dir-head" type="button" aria-expanded="false" data-dir>
-          <span class="dn">11</span>
+          <span class="dn">07</span>
           <span class="dwrap"><span class="dt">Острая боль</span><span class="dh">Не терпите до утра — снимем боль сегодня и разберёмся почему</span></span>
           <span class="dp">приём в день обращения</span>
           <span class="dpl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg></span>
@@ -1153,6 +1185,7 @@
             </div>
           </div>
         </div></div></div>
+      </div>
       </div>
     </div>
     <p class="s-note rv">Не нашли свою ситуацию? Мы лечим практически всё — от детской профилактики до сложной имплантации. <a href="#calc">Опишите задачу за 1 минуту</a> — подскажем и рассчитаем.</p>
