@@ -324,10 +324,10 @@
 
   /* ============ SECTIONS ============ */
   section{padding:clamp(60px,7.5vw,104px) 0;position:relative}
-  .shead{display:flex;align-items:baseline;justify-content:space-between;gap:24px;margin-bottom:clamp(30px,3.8vw,52px)}
+  .shead{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:clamp(30px,3.8vw,52px)}
   .shead .idx{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);white-space:nowrap}
   .shead h2{font-size:clamp(34px,4.6vw,66px);max-width:18ch}
-  .shead .side{max-width:340px;font-size:15px;color:var(--ink-70)}
+  .shead .side{max-width:380px;font-size:clamp(15.5px,1.4vw,18px);line-height:1.55;color:var(--ink-70);padding-top:clamp(18px,2.1vw,28px)}
 
   /* manifest */
   .manifest{padding-bottom:0}
@@ -361,8 +361,6 @@
 
   /* группы услуг (операционная / каждому) */
   .svc-group{margin-bottom:clamp(44px,6vw,88px)}
-  .svc-group .shead{align-items:flex-end}
-  .svc-group .shead .side{font-size:clamp(15.5px,1.5vw,18px);max-width:380px;line-height:1.55}
   .svc-group:last-of-type{margin-bottom:0}
   .op-banner{margin:0 0 clamp(8px,1.2vw,16px);border:1px solid var(--hairline-strong);background:var(--paper-2)}
   .op-banner img{width:100%;display:block;aspect-ratio:3/2;object-fit:cover}
@@ -669,6 +667,7 @@
     /* заголовки секций — в колонку (главный фикс переполнения) */
     .shead{display:block;margin-bottom:clamp(24px,6vw,38px)}
     .shead > div,.shead h2,.shead .side,.shead .idx{display:block;max-width:none}
+    .shead .side{padding-top:0}
     .shead h2{margin:8px 0 10px}
     .shead h2 br{display:none}
     /* кейсы — данные в 2 колонки, без nowrap */
