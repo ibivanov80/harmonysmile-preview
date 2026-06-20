@@ -438,6 +438,7 @@
   .q-back{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--paper-on-ink-60);border-bottom:1px solid var(--hairline-inv);padding-bottom:2px}
   .q-back:hover{color:var(--paper)}
   .q-back[disabled]{visibility:hidden}
+  .hp{position:absolute!important;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none}
   .q-form{display:grid;grid-template-columns:1fr 1fr auto;gap:12px;margin-top:6px}
   .q-form input{background:transparent;border:1px solid var(--hairline-inv);color:var(--paper);padding:15px 16px;font:inherit;font-size:15px;min-height:54px}
   .q-form input::placeholder{color:rgba(250,250,247,.45)}
@@ -1250,6 +1251,7 @@
         <div class="q-step" data-step="4">
           <div class="q-q">Куда прислать расчёт и&nbsp;записать вас на&nbsp;консультацию?</div>
           <form class="q-form" id="qForm">
+            <input type="text" name="company" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
             <input type="text" name="name" placeholder="Имя" autocomplete="name" required>
             <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" autocomplete="tel" inputmode="tel" required>
             <button type="submit" class="btn primary">Получить расчёт</button>
@@ -1518,6 +1520,7 @@
       <p class="lede">Осмотр, КТ и план лечения с фиксированной стоимостью. Консультацию зачтём в лечение, если начнёте у нас, — без навязанных услуг.</p>
       <a class="c-tel js-phone-link" data-goal="call_click" href="tel:+78126608088">+7 (812) 660-80-88</a>
       <form class="c-form" id="cForm">
+        <input type="text" name="company" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <input type="text" name="name" placeholder="Имя" autocomplete="name" required>
         <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" autocomplete="tel" inputmode="tel" required>
         <button type="submit" class="btn primary">Жду звонка</button>
@@ -1580,9 +1583,28 @@
   document.querySelectorAll('[data-goal="call_click"]').forEach(function(el){
     el.addEventListener('click', function(){ trackGoal('call_click'); });
   });
+  /* приём заявок: тот же домен → send.php (почта + Telegram). На превью (github.io)
+     файла нет — fetch мягко падает, UX уже показал успех, лид остаётся в Метрике/CallTouch. */
+  var LEAD_ENDPOINT = 'send.php';
+  function getUTM(){
+    var p = {};
+    try { new URLSearchParams(location.search).forEach(function(v,k){ if(/^(utm_|yclid|gclid|roistat)/.test(k)) p[k] = v; }); } catch(e){}
+    return p;
+  }
   function sendLead(data){
+    data = data || {};
     trackGoal('form_submit', data);
     try { if (typeof window.ct === 'function') window.ct('send', 'request'); } catch(_){}
+    if (data.company) return; // honeypot заполнен ботом
+    var payload = Object.assign({ page: location.href, referrer: document.referrer || '' }, getUTM(), data);
+    try {
+      fetch(LEAD_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        keepalive: true
+      }).catch(function(){});
+    } catch(e){}
   }
   window.__sendLead = sendLead;
 
@@ -1788,7 +1810,7 @@
       nav.style.display = 'none';
       done.style.display = 'block';
       bar.style.width = '100%'; lbl.textContent = 'готово';
-      window.__sendLead && window.__sendLead({ source: 'квиз', service: answers['1'] || '', name: answers.name, phone: answers.phone });
+      window.__sendLead && window.__sendLead({ source: 'квиз-калькулятор', service: answers['1'] || '', name: answers.name, phone: answers.phone, 'последний визит': answers['2'] || '', 'когда удобно': answers['3'] || '', company: this.company ? this.company.value : '' });
       window.__track && window.__track('quiz_complete');
     });
     /* предвыбор услуги из списка услуг */
@@ -1811,7 +1833,7 @@
       e.preventDefault();
       f.style.display = 'none';
       document.getElementById('cDone').style.display = 'block';
-      window.__sendLead && window.__sendLead({ source: 'форма заявки', name: f.name.value, phone: f.phone.value });
+      window.__sendLead && window.__sendLead({ source: 'форма «Жду звонка»', name: f.name.value, phone: f.phone.value, company: f.company ? f.company.value : '' });
     });
   })();
 
