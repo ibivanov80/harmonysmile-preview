@@ -361,13 +361,15 @@
 
   /* группы услуг (операционная / каждому) */
   .svc-group{margin-bottom:clamp(44px,6vw,88px)}
+  .svc-group .shead{align-items:flex-end}
+  .svc-group .shead .side{font-size:clamp(15.5px,1.5vw,18px);max-width:380px;line-height:1.55}
   .svc-group:last-of-type{margin-bottom:0}
-  .op-banner{position:relative;margin:0 0 clamp(6px,1vw,12px);border:1px solid var(--hairline-strong);overflow:hidden;background:var(--paper-2)}
-  .op-banner img{width:100%;display:block;aspect-ratio:16/7;object-fit:cover}
-  .op-banner figcaption{position:absolute;left:0;bottom:0;right:0;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
-    padding:clamp(14px,2vw,22px) clamp(16px,2vw,26px);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
-    color:var(--paper);background:linear-gradient(to top,rgba(17,17,16,.82),rgba(17,17,16,0))}
-  .op-banner figcaption b{color:#D9A7AF;font-weight:500}
+  .op-banner{margin:0 0 clamp(8px,1.2vw,16px);border:1px solid var(--hairline-strong);background:var(--paper-2)}
+  .op-banner img{width:100%;display:block;aspect-ratio:3/2;object-fit:cover}
+  .op-banner figcaption{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    padding:13px clamp(16px,2vw,22px);border-top:1px solid var(--hairline);
+    font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-50)}
+  .op-banner figcaption b{color:var(--accent);font-weight:500}
 
   /* directions (расширенные услуги) */
   .dirs{border-top:1px solid var(--hairline-strong)}
@@ -706,7 +708,7 @@
     /* группы услуг + баннер операционной на мобиле */
     .svc-group{margin-bottom:clamp(34px,9vw,52px)}
     .op-banner img{aspect-ratio:4/3}
-    .op-banner figcaption{flex-direction:column;gap:5px;font-size:10px;padding:14px 16px}
+    .op-banner figcaption{flex-direction:column;gap:4px;font-size:10px;padding:12px 16px}
   }
 </style>
 </head>
@@ -836,29 +838,29 @@
       <div class="dir-item rv">
         <button class="dir-head" type="button" aria-expanded="false" data-dir>
           <span class="dn">01</span>
-          <span class="dwrap"><span class="dt">Имплантация</span><span class="dh">Нет одного зуба или почти всех — вернём улыбку, на которую можно опереться</span></span>
+          <span class="dwrap"><span class="dt">Имплантация и протезирование</span><span class="dh">От одного импланта до полного восстановления — с коронкой или протезом под ключ</span></span>
           <span class="dp">от 45 000 ₽ за имплант</span>
           <span class="dpl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg></span>
         </button>
         <div class="dir-panel"><div><div class="dir-body">
           <div>
-            <p class="lede">Имплант заменяет утраченный корень и держит нагрузку как родной зуб: соседние зубы остаются нетронутыми, а кость не убывает. Подберём решение под вашу ситуацию — от одного импланта до полного восстановления челюсти, спокойно и без давления.</p>
+            <p class="lede">Имплант заменяет утраченный корень, а коронка или протез возвращают видимую часть зуба — так восстанавливаем и один зуб, и всю челюсть. Импланты Osstem и Neodent, коронки и виниры из циркония и керамики, мостовидные и съёмные протезы. Подберём решение под вашу ситуацию, спокойно и без давления.</p>
             <div class="dir-bens">
-            <div class="dir-ben"><span class="bm"></span><div><b>Сохраняем то, что можно сохранить</b><span>Сначала смотрим, какие зубы ещё спасти, и только потом планируем импланты. Не удаляем лишнего.</span></div></div>
-            <div class="dir-ben"><span class="bm"></span><div><b>Импланты с проверенной репутацией</b><span>Osstem и Neodent — системы с многолетней практикой и понятной гарантией. Для полного восстановления — All-on-4 и All-on-6.</span></div></div>
-            <div class="dir-ben"><span class="bm"></span><div><b>Цена зафиксирована в договоре</b><span>Сумма, озвученная после осмотра и КТ, не вырастет в процессе. Доступна рассрочка 0% и налоговый вычет 13%.</span></div></div>
+            <div class="dir-ben"><span class="bm"></span><div><b>Сохраняем то, что можно сохранить</b><span>Сначала смотрим, какие зубы ещё спасти, и только потом планируем импланты и протезы. Не удаляем лишнего.</span></div></div>
+            <div class="dir-ben"><span class="bm"></span><div><b>Имплант и коронка — под ключ</b><span>Osstem и Neodent с понятной гарантией, цирконий и керамика сверху. Для полного восстановления — All-on-4 и All-on-6.</span></div></div>
+            <div class="dir-ben"><span class="bm"></span><div><b>Цена зафиксирована в договоре</b><span>Сумма, озвученная после осмотра и КТ, не вырастет в процессе. Рассрочка 0% и налоговый вычет 13%.</span></div></div>
             </div>
           </div>
           <div class="dir-side">
-            <div class="pmeta">Имплант от 45 000 ₽, полное восстановление челюсти All-on-4 — от 170 000 ₽. Итоговая сумма зависит от объёма и становится известна после КТ; зафиксируем её в договоре. Рассрочка 0% и налоговый вычет 13%.</div>
+            <div class="pmeta">Имплант — от 45 000 ₽, коронка — от 35 500 ₽, полное восстановление челюсти All-on-4 — от 170 000 ₽. Итог зависит от объёма и фиксируется в договоре после КТ. Рассрочка 0%, вычет 13%.</div>
             <ol class="steps">
               <li>Консультация и 3D-снимок (КТ): оцениваем кость, составляем честный план и точную стоимость</li>
-              <li>При нехватке объёма кости — костная пластика, чтобы имплант встал надёжно</li>
-              <li>Установка имплантов — аккуратно, под надёжной анестезией, без боли</li>
-              <li>Установка постоянной коронки или протеза на импланты — выходите с готовой улыбкой</li>
+              <li>Установка имплантов под надёжной анестезией; при нехватке кости — костная пластика</li>
+              <li>Изготовление коронки или протеза по цифровым слепкам</li>
+              <li>Фиксация постоянной конструкции — выходите с готовой улыбкой</li>
             </ol>
             <div class="dir-cta">
-              <a class="btn btn-ink" href="#calc" data-service="Имплантация">Рассчитать стоимость</a>
+              <a class="btn btn-ink" href="#calc" data-service="Имплантация и протезирование">Рассчитать стоимость</a>
               <a class="btn btn-line" href="#contact">Записаться</a>
             </div>
           </div>
@@ -1065,37 +1067,6 @@
       <div class="dir-item rv">
         <button class="dir-head" type="button" aria-expanded="false" data-dir>
           <span class="dn">04</span>
-          <span class="dwrap"><span class="dt">Протезирование</span><span class="dh">Вернём крепкие зубы и красивую улыбку — спокойно, без боли и сюрпризов в цене</span></span>
-          <span class="dp">от 35 500 ₽</span>
-          <span class="dpl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg></span>
-        </button>
-        <div class="dir-panel"><div><div class="dir-body">
-          <div>
-            <p class="lede">Разрушенный или потерянный зуб не восстановится сам, но это решаемо. Наши ортопеды подбирают коронку или протез под вашу ситуацию, эстетику и бюджет — и сначала всё спокойно объясняют, а уже потом лечат.</p>
-            <div class="dir-bens">
-            <div class="dir-ben"><span class="bm"></span><div><b>Цена в договоре не меняется</b><span>Итоговую стоимость озвучиваем после осмотра и снимка — до начала работ. То, что зафиксировано в договоре, останется неизменным.</span></div></div>
-            <div class="dir-ben"><span class="bm"></span><div><b>Своя зуботехническая лаборатория</b><span>Коронки и протезы изготавливают точно по вам, с цифровым моделированием улыбки. Естественный вид и аккуратная посадка — как свои зубы.</span></div></div>
-            <div class="dir-ben"><span class="bm"></span><div><b>Гарантия и рассрочка 0%</b><span>На ортопедические конструкции даём гарантию по договору. Большой план можно разбить на комфортные платежи без переплат, доступен налоговый вычет 13%.</span></div></div>
-            </div>
-          </div>
-          <div class="dir-side">
-            <div class="pmeta">Цена за коронку из металлокерамики «Стандарт». Цирконий, цельная керамика, мостовидные, съёмные и бюгельные протезы, конструкции на имплантах — стоимость зависит от объёма и становится известна после осмотра. Доступна рассрочка 0% и налоговый вычет 13%.</div>
-            <ol class="steps">
-              <li>Осмотр и снимок: оценим состояние зубов и подберём тип коронки или протеза</li>
-              <li>План и стоимость: озвучим до начала работ — цена не изменится</li>
-              <li>Подготовка и слепки: лаборатория изготовит конструкцию точно по вам</li>
-              <li>Установка и контроль: зафиксируем, проверим прикус и дадим гарантию</li>
-            </ol>
-            <div class="dir-cta">
-              <a class="btn btn-ink" href="#calc" data-service="Протезирование">Рассчитать стоимость</a>
-              <a class="btn btn-line" href="#contact">Записаться</a>
-            </div>
-          </div>
-        </div></div></div>
-      </div>
-      <div class="dir-item rv">
-        <button class="dir-head" type="button" aria-expanded="false" data-dir>
-          <span class="dn">05</span>
           <span class="dwrap"><span class="dt">Виниры и эстетика</span><span class="dh">Ровные, белые, естественные зубы — и улыбка, которую не хочется прятать</span></span>
           <span class="dp">винир от 42 500 ₽</span>
           <span class="dpl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg></span>
@@ -1126,7 +1097,7 @@
       </div>
       <div class="dir-item rv">
         <button class="dir-head" type="button" aria-expanded="false" data-dir>
-          <span class="dn">06</span>
+          <span class="dn">05</span>
           <span class="dwrap"><span class="dt">Детям</span><span class="dh">Чтобы ребёнок шёл к врачу сам, а не со слезами</span></span>
           <span class="dp">от 900 ₽</span>
           <span class="dpl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg></span>
@@ -1157,7 +1128,7 @@
       </div>
       <div class="dir-item rv">
         <button class="dir-head" type="button" aria-expanded="false" data-dir>
-          <span class="dn">07</span>
+          <span class="dn">06</span>
           <span class="dwrap"><span class="dt">Острая боль</span><span class="dh">Не терпите до утра — снимем боль сегодня и разберёмся почему</span></span>
           <span class="dp">приём в день обращения</span>
           <span class="dpl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg></span>
