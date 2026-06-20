@@ -1583,28 +1583,28 @@
   document.querySelectorAll('[data-goal="call_click"]').forEach(function(el){
     el.addEventListener('click', function(){ trackGoal('call_click'); });
   });
-  /* приём заявок: тот же домен → send.php (почта + Telegram). На превью (github.io)
-     файла нет — fetch мягко падает, UX уже показал успех, лид остаётся в Метрике/CallTouch. */
-  var LEAD_ENDPOINT = 'send.php';
-  function getUTM(){
-    var p = {};
-    try { new URLSearchParams(location.search).forEach(function(v,k){ if(/^(utm_|yclid|gclid|roistat)/.test(k)) p[k] = v; }); } catch(e){}
-    return p;
+  /* приём заявок: тот же обработчик, что у действующих лендингов клиники (harmonysmile.ru/lp/*).
+     Лид уходит POST'ом на /lp/lead.php в формате {name, phone, source[, quiz_answers]} — туда же,
+     куда падают все лиды клиники. Конверсию регистрируем как URL-цель /lp/thanks/, не уводя со
+     страницы. На превью (github.io) эндпоинта нет — fetch мягко падает, UX показывает «спасибо». */
+  var LEAD_ENDPOINT = '/lp/lead.php';
+  var THANKS_PATH   = '/lp/thanks/';
+  function utmSuffix(){
+    var parts = [];
+    try { new URLSearchParams(location.search).forEach(function(v,k){ if(/^(utm_|yclid|gclid|roistat|from)/.test(k)) parts.push(k+'='+v); }); } catch(e){}
+    return parts.length ? ' | ' + parts.join(' ') : '';
   }
   function sendLead(data){
     data = data || {};
-    trackGoal('form_submit', data);
+    if (data.company) return; // honeypot заполнен ботом — не отправляем
+    var lead = { name: data.name || '', phone: data.phone || '', source: (data.source || 'Сайт') + utmSuffix() };
+    if (data.quiz_answers) lead.quiz_answers = data.quiz_answers;
+    trackGoal('form_submit', { source: data.source || 'Сайт' });
     try { if (typeof window.ct === 'function') window.ct('send', 'request'); } catch(_){}
-    if (data.company) return; // honeypot заполнен ботом
-    var payload = Object.assign({ page: location.href, referrer: document.referrer || '' }, getUTM(), data);
     try {
-      fetch(LEAD_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-        keepalive: true
-      }).catch(function(){});
+      fetch(LEAD_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(lead), keepalive: true }).catch(function(){});
     } catch(e){}
+    try { if (typeof window.ym === 'function') window.ym(METRIKA_ID, 'hit', THANKS_PATH); } catch(e){}
   }
   window.__sendLead = sendLead;
 
@@ -1810,7 +1810,12 @@
       nav.style.display = 'none';
       done.style.display = 'block';
       bar.style.width = '100%'; lbl.textContent = 'готово';
-      window.__sendLead && window.__sendLead({ source: 'квиз-калькулятор', service: answers['1'] || '', name: answers.name, phone: answers.phone, 'последний визит': answers['2'] || '', 'когда удобно': answers['3'] || '', company: this.company ? this.company.value : '' });
+      var qa = [
+        answers['1'] ? 'Запрос: ' + answers['1'] : '',
+        answers['2'] ? 'Последний визит: ' + answers['2'] : '',
+        answers['3'] ? 'Когда удобно: ' + answers['3'] : ''
+      ].filter(Boolean).join('; ');
+      window.__sendLead && window.__sendLead({ source: 'Сайт — квиз-калькулятор', name: answers.name, phone: answers.phone, quiz_answers: qa, company: this.company ? this.company.value : '' });
       window.__track && window.__track('quiz_complete');
     });
     /* предвыбор услуги из списка услуг */
@@ -1833,7 +1838,7 @@
       e.preventDefault();
       f.style.display = 'none';
       document.getElementById('cDone').style.display = 'block';
-      window.__sendLead && window.__sendLead({ source: 'форма «Жду звонка»', name: f.name.value, phone: f.phone.value, company: f.company ? f.company.value : '' });
+      window.__sendLead && window.__sendLead({ source: 'Сайт — Жду звонка', name: f.name.value, phone: f.phone.value, company: f.company ? f.company.value : '' });
     });
   })();
 
