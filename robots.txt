@@ -1,5 +1,44 @@
+# robots.txt — harmonysmile.ru
+# Поисковые роботы (Яндекс, Google и пр.): индексируем всё,
+# кроме служебной покадровой секвенции hero.
 User-agent: *
 Allow: /
 Disallow: /assets/smile-seq/
 
 Sitemap: https://harmonysmile.ru/sitemap.xml
+
+# ───────────────────────────────────────────────────────────────
+# AI / генеративные движки (GEO — выдача в ChatGPT, Алиса/Нейро,
+# Google AI Overviews/Gemini, Perplexity и т.д.).
+# Клинике ВЫГОДНО попадать в ответы ассистентов → разрешаем явно.
+# Чтобы закрыть конкретного бота — поменяй его «Allow: /» на «Disallow: /».
+# ───────────────────────────────────────────────────────────────
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: YandexAdditional
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
