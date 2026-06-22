@@ -582,6 +582,8 @@
   .c-info{display:grid;grid-template-columns:repeat(3,auto);gap:clamp(24px,4vw,64px);justify-content:start;border-top:1px solid var(--hairline-inv);padding-top:26px}
   .c-info .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--paper-on-ink-60);margin-bottom:8px}
   .c-info .v{font-size:15px;color:var(--paper)}
+  .c-map{margin-top:clamp(28px,3.6vw,46px);border:1px solid var(--hairline-inv)}
+  .c-map iframe{display:block;width:100%;height:clamp(280px,40vw,380px);border:0}
 
   /* footer */
   footer{padding:30px 0;border-top:1px solid var(--hairline)}
@@ -1519,11 +1521,14 @@
         <a class="btn" href="https://vk.com/gu.gagarina" target="_blank" rel="noopener">ВКонтакте</a>
       </div>
       <div class="c-info">
-        <div><div class="k">Адрес</div><div class="v">пр. Юрия Гагарина, 18к1</div></div>
+        <div><div class="k">Адрес</div><div class="v">Санкт-Петербург, пр. Юрия Гагарина, 18к1</div></div>
         <div><div class="k">Метро</div><div class="v">Московская</div></div>
         <div><div class="k">Часы работы</div><div class="v">пн–вс · 9:00–21:00</div></div>
         <div><div class="k">Проезд</div><div class="v"><a href="https://yandex.ru/maps/?text=пр.%20Юрия%20Гагарина%2018к1%20Санкт-Петербург" target="_blank" rel="noopener" style="border-bottom:1px solid var(--hairline-inv)">маршрут на Яндекс.Картах</a></div></div>
       </div>
+      <figure class="c-map">
+        <iframe title="Гармония Улыбки на карте — пр. Юрия Гагарина, 18к1, Санкт-Петербург" loading="lazy" allowfullscreen src="https://yandex.ru/map-widget/v1/?text=%D0%93%D0%B0%D1%80%D0%BC%D0%BE%D0%BD%D0%B8%D1%8F%20%D0%A3%D0%BB%D1%8B%D0%B1%D0%BA%D0%B8%2C%20%D0%BF%D1%80%D0%BE%D1%81%D0%BF%D0%B5%D0%BA%D1%82%20%D0%AE%D1%80%D0%B8%D1%8F%20%D0%93%D0%B0%D0%B3%D0%B0%D1%80%D0%B8%D0%BD%D0%B0%2C%2018%D0%BA1%2C%20%D0%A1%D0%B0%D0%BD%D0%BA%D1%82-%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B1%D1%83%D1%80%D0%B3&z=16"></iframe>
+      </figure>
     </div>
   </div>
 </section>
@@ -1535,7 +1540,6 @@
     <div class="foot">
       <span>© 2026 «Гармония Улыбки»</span>
       <a href="https://harmonysmile.ru" target="_blank" rel="noopener">harmonysmile.ru</a>
-      <span>прототип редизайна · монохромная редакция</span>
     </div>
     <div class="legal">
       <div class="warn">Имеются противопоказания. Необходима консультация специалиста.</div>
