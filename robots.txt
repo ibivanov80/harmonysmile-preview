@@ -4,6 +4,8 @@
 User-agent: *
 Allow: /
 Disallow: /assets/smile-seq/
+# Склейка дублей URL с UTM/рекламными метками (директива учитывается только Яндексом):
+Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term&yclid&gclid&_openstat&roistat /
 
 Sitemap: https://harmonysmile.ru/sitemap.xml
 
