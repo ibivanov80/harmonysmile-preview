@@ -138,7 +138,7 @@ section.block h3{font-family:var(--sans);font-weight:600;font-size:19px;margin:2
 @media(max-width:760px){.doc-hero{grid-template-columns:1fr}.doc-hero figure{max-width:330px}}
 
 /* doctors: видеовизитка и цитаты */
-.doc-video video{width:100%;max-width:600px;display:block;background:#000}
+.doc-video video{width:100%;max-width:390px;display:block;background:#000}
 .doc-video .cap{font-family:var(--mono);font-size:12px;color:var(--ink-50);margin-top:10px}
 .doc-quote{border-left:2px solid var(--wine);padding:4px 0 4px 20px;margin:18px 0}
 .doc-quote p{font-size:17px;color:var(--ink-70);margin:0 0 8px;font-style:italic}
