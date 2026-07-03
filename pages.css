@@ -29,7 +29,7 @@ a:hover{color:var(--wine-deep);text-decoration:underline;text-underline-offset:3
 .head-msgrs{display:flex;align-items:center;gap:8px}
 .head-msgrs .hm{width:38px;height:38px;border:1px solid var(--ink);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:var(--ink);transition:background .25s,color .25s}
 .head-msgrs .hm svg{width:15px;height:15px;display:block}
-.head-msgrs .hm:hover{background:var(--ink);color:var(--paper);text-decoration:none}
+.head-msgrs .hm:hover{background:var(--wine);border-color:var(--wine);color:#fff;text-decoration:none}
 @media(max-width:680px){.head-phone{display:none}}
 @media(max-width:600px){.head-msgrs{display:none}}
 
