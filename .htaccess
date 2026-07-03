@@ -1,0 +1,112 @@
+# ─────────────────────────────────────────────────────────────────────────
+# harmonysmile.ru — конфигурация боевого сайта (Apache / reg.ru)
+# Кладётся в КОРЕНЬ сайта вместе с index.html. Делает наш статический сайт
+# главной, отключает перехват WordPress и переносит SEO со старых адресов
+# через 301-редиректы. Папку /lp/ (лендинги + политика) НЕ трогает.
+# ВНИМАНИЕ: заливается только при боевой выкладке (перезаписывает .htaccess WP,
+# копия старого — в бэкапе). Если хостинг окажется nginx-only — редиректы
+# нужно будет завести в панели reg.ru (этот файл там не читается).
+# ─────────────────────────────────────────────────────────────────────────
+
+# Главная страница — наш статический index.html (а не WordPress index.php)
+DirectoryIndex index.html
+
+# Не показывать листинг папок
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # ── Канонический хост: убрать www (склейка зеркал www → без-www) ──
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L,NE]
+
+  # ── http → https — ВРЕМЕННО ОТКЛЮЧЕНО (закомментировано). ──
+  #    Риск петли: на reg.ru SSL терминирует nginx и проксирует в Apache как
+  #    http. Если nginx НЕ прокидывает X-Forwarded-Proto, guard ниже не спасёт
+  #    и https-запрос зациклится. С диска проверить нельзя → не включаем вслепую
+  #    на живом сайте. Реальных пользователей уже закрывает HSTS (max-age 1 год)
+  #    + canonical. Включать ТОЛЬКО после подтверждения, что прокси шлёт
+  #    X-Forwarded-Proto, и с живым наблюдением 30с и готовым откатом.
+  #  RewriteCond %{HTTPS} off
+  #  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  #  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L,NE]
+
+  # ── Глушим живые точки входа дремлющего WordPress (поверхность атаки).
+  #    /wp-content/uploads (фото врачей hotlink) НЕ трогаем — он не PHP. ──
+  RewriteRule ^xmlrpc\.php$   - [F,L]
+  RewriteRule ^wp-login\.php$ / [R=301,L]
+
+  # ── 301-редиректы со старых страниц WordPress на разделы нового сайта ──
+
+  # Услуги
+  RewriteRule ^services/?$            /#services [R=301,L,NE]
+  RewriteRule ^services/             /#services [R=301,L,NE]
+  RewriteRule ^all-on-4-implantacziya/?$ /all-on-4/ [R=301,L,NE]
+
+  # Акции / скидки
+  RewriteRule ^discount(/.*)?$       /#prices [R=301,L,NE]
+
+  # Квиз-расчёт стоимости
+  RewriteRule ^raschet-stoimosti-kviz/?$ /#calc [R=301,L,NE]
+
+  # Контакты / карточка организации
+  RewriteRule ^kontakty/?$           /#contact [R=301,L,NE]
+  RewriteRule ^kartochka-organizaczii/?$ /#contact [R=301,L,NE]
+
+  # Старые карточки врачей WordPress → новый раздел врачей
+  RewriteRule ^team(/.*)?$           /vrachi/ [R=301,L]
+
+  # Рекомендации пациентам → раздел памяток
+  RewriteRule ^rekomendaczii-dlya-paczientov/?$ /pamyatki/ [R=301,L,NE]
+
+  # ── Ранжирующиеся PDF-памятки старого WordPress → HTML-страницы /pamyatki/
+  #    (паттерн ловит и датированный путь /uploads/2025/04/…, и без даты).
+  #    Остальные PDF из /wp-content/uploads НЕ трогаем — отдаются файлами. ──
+  RewriteRule ^wp-content/uploads/(.+/)?1\.rekomendaczii-posle-udaleniya-zuba\.pdf$ /pamyatki/posle-udaleniya-zuba/ [R=301,L,NE]
+  RewriteRule ^wp-content/uploads/(.+/)?2\.2\.rekomendaczii-posle-otbelivaniya\.pdf$ /pamyatki/posle-otbelivaniya/ [R=301,L,NE]
+
+  # Блог и статьи → на главную (решено 2026-06-22: контент не переносим)
+  RewriteRule ^blog(/.*)?$           / [R=301,L]
+  RewriteRule ^articles(/.*)?$       / [R=301,L]
+
+  # Служебные и мусорные страницы плагина → на главную
+  RewriteRule ^submissions(/.*)?$    / [R=301,L]
+  RewriteRule ^category(/.*)?$       / [R=301,L]
+  RewriteRule ^author(/.*)?$         / [R=301,L]
+  RewriteRule ^bez-rubriki(/.*)?$    / [R=301,L]
+  RewriteRule ^discount-sitemap\.xml$ /sitemap.xml [R=301,L]
+
+  # ── Подстраховка: любой другой старый адрес (кроме /lp/, файлов WordPress
+  #    и реально существующих файлов/папок) — на главную, чтобы не было 404 ──
+  RewriteCond %{REQUEST_URI}  !^/lp/
+  RewriteCond %{REQUEST_URI}  !^/wp-
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ / [R=301,L]
+</IfModule>
+
+# ── Кеширование статики (PSI: «эффективный период хранения кеша») ──
+# Картинки/шрифты — на год, CSS/JS — на месяц, HTML не кешируем
+# (меняется при каждом деплое). Блоки в <IfModule>: если модуль на хостинге
+# выключен — просто игнорируются, сайт не падает.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg             "access plus 1 year"
+  ExpiresByType image/png              "access plus 1 year"
+  ExpiresByType image/webp             "access plus 1 year"
+  ExpiresByType image/svg+xml          "access plus 1 year"
+  ExpiresByType image/x-icon           "access plus 1 year"
+  ExpiresByType font/woff2             "access plus 1 year"
+  ExpiresByType text/css               "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType text/html              "access plus 0 seconds"
+</IfModule>
+<IfModule mod_headers.c>
+  <FilesMatch "\.(jpg|jpeg|png|webp|svg|ico|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+</IfModule>
