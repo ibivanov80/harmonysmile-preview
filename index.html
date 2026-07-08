@@ -169,7 +169,6 @@
     {"@type":"Physician","@id":"https://harmonysmile.ru/#doctor-kadyrov","name":"Кадыров Абу Бакар Арбиевич","medicalSpecialty":"Dentistry","image":"https://harmonysmile.ru/assets/doctors/kadyrov.jpg","url":"https://harmonysmile.ru/vrachi/kadyrov/","telephone":"+78126608088","priceRange":"$$$","address":{"@type":"PostalAddress","streetAddress":"пр. Юрия Гагарина, 18к1","addressLocality":"Санкт-Петербург","postalCode":"196211","addressCountry":"RU"}},
     {"@type":"Physician","@id":"https://harmonysmile.ru/#doctor-sednev","name":"Седнев Роман Валерьевич","medicalSpecialty":"Surgical","image":"https://harmonysmile.ru/assets/doctors/sednev.jpg","url":"https://harmonysmile.ru/vrachi/sednev/","telephone":"+78126608088","priceRange":"$$$","address":{"@type":"PostalAddress","streetAddress":"пр. Юрия Гагарина, 18к1","addressLocality":"Санкт-Петербург","postalCode":"196211","addressCountry":"RU"}},
     {"@type":"Physician","@id":"https://harmonysmile.ru/#doctor-semenistaya","name":"Семенистая Марина Сергеевна","medicalSpecialty":"Dentistry","image":"https://harmonysmile.ru/assets/doctors/semenistaya.jpg","url":"https://harmonysmile.ru/vrachi/semenistaya/","telephone":"+78126608088","priceRange":"$$$","address":{"@type":"PostalAddress","streetAddress":"пр. Юрия Гагарина, 18к1","addressLocality":"Санкт-Петербург","postalCode":"196211","addressCountry":"RU"}},
-    {"@type":"Physician","@id":"https://harmonysmile.ru/#doctor-molchanova","name":"Молчанова Мария Сергеевна","medicalSpecialty":"Dentistry","image":"https://harmonysmile.ru/assets/doctors/molchanova.jpg","url":"https://harmonysmile.ru/vrachi/molchanova/","telephone":"+78126608088","priceRange":"$$$","address":{"@type":"PostalAddress","streetAddress":"пр. Юрия Гагарина, 18к1","addressLocality":"Санкт-Петербург","postalCode":"196211","addressCountry":"RU"}},
     {"@type":"Physician","@id":"https://harmonysmile.ru/#doctor-leonchuk","name":"Леончук Юрий Владимирович","medicalSpecialty":"Dentistry","image":"https://harmonysmile.ru/assets/doctors/leonchuk.jpg","url":"https://harmonysmile.ru/vrachi/leonchuk/","telephone":"+78126608088","priceRange":"$$$","address":{"@type":"PostalAddress","streetAddress":"пр. Юрия Гагарина, 18к1","addressLocality":"Санкт-Петербург","postalCode":"196211","addressCountry":"RU"}}
   ]
 }</script>
@@ -279,12 +278,18 @@
   body.menu-open .burger span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
 
   /* mobile menu */
-  .mmenu{position:fixed;inset:0;background:var(--paper);z-index:55;display:flex;flex-direction:column;justify-content:center;padding:0 8vw;
+  .mmenu{position:fixed;inset:0;background:var(--paper);z-index:55;display:flex;flex-direction:column;overflow-y:auto;
+    padding:calc(78px + env(safe-area-inset-top)) 8vw calc(28px + env(safe-area-inset-bottom));
     opacity:0;visibility:hidden;transition:opacity .4s var(--ease),visibility .4s}
+  /* центрирование через auto-margin: на высоких экранах пункты по центру,
+     а когда высоты не хватает — обычный скролл (justify-content:center обрезал бы верх) */
+  .mmenu > :first-child{margin-top:auto}
+  .mmenu > :last-child{margin-bottom:auto}
+  body.menu-open{overflow:hidden}
   body.menu-open .mmenu{opacity:1;visibility:visible}
-  .mmenu a{font-family:var(--serif);font-size:clamp(34px,9vw,52px);padding:14px 0;border-bottom:1px solid var(--hairline);display:flex;justify-content:space-between;align-items:center}
+  .mmenu a{font-family:var(--serif);font-size:clamp(28px,7.5vw,44px);padding:10px 0;border-bottom:1px solid var(--hairline);display:flex;justify-content:space-between;align-items:center;gap:14px}
   .mmenu a .mono-num{font-size:12px;color:var(--ink-50)}
-  .mmenu .mcontact{margin-top:36px;display:flex;flex-direction:column;gap:8px;font-family:var(--mono);font-size:13px;color:var(--ink-70)}
+  .mmenu .mcontact{margin-top:26px;display:flex;flex-direction:column;gap:8px;font-family:var(--mono);font-size:13px;color:var(--ink-70)}
   .mmenu .mmsgrs{display:flex;gap:12px;margin-top:12px}
   .mmenu .mmsgrs a{width:46px;height:46px;border:1px solid var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;padding:0;color:var(--ink)}
   .mmenu .mmsgrs a svg{width:18px;height:18px;display:block}
@@ -458,6 +463,13 @@
   .calc .btn.primary:hover{background:#84404C;border-color:#84404C}
   .q-agree{margin-top:14px;font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--paper-on-ink-60);max-width:62ch}
   .q-agree a{border-bottom:1px solid currentColor}
+  /* чекбоксы согласий (ТЗ юриста 2026-07): обязательное ПДн + опциональная реклама */
+  .consent{display:flex;gap:10px;align-items:flex-start;font-family:var(--mono);font-size:11px;letter-spacing:.04em;line-height:1.5;color:var(--paper-on-ink-60);cursor:pointer;text-align:left}
+  .consent input{width:16px;height:16px;margin-top:1px;flex:none;accent-color:var(--accent);cursor:pointer}
+  .consent a{border-bottom:1px solid currentColor}
+  .q-form .consent,.c-form .consent{grid-column:1/-1;margin:0}
+  /* перебиваем габариты полей форм: правила .q-form input / .c-form input идут ниже по каскаду */
+  .q-form .consent input,.c-form .consent input{width:16px;height:16px;min-height:0;padding:0;border:1px solid currentColor}
   .q-done{text-align:center;padding:30px 0 14px;display:none}
   .q-done .big{font-family:var(--serif);font-size:clamp(24px,2.6vw,34px);color:var(--paper);margin-bottom:10px}
   .q-done p{color:var(--paper-on-ink-60);max-width:46ch;margin:0 auto}
@@ -705,6 +717,8 @@
     .logo .tag{display:none}
     .head-right{gap:12px}
     .head-right .btn{min-height:40px;padding:9px 16px;font-size:13px}
+    /* открытое меню: CTA шапки лежит поверх оверлея (z 60 > 55) — гасим, чтобы не кликался сквозь меню */
+    body.menu-open .head-right .btn{opacity:0;pointer-events:none;transition:opacity .25s}
     /* ── нижняя липкая плашка: компактная, в одну строку ── */
     .mcta{padding:8px 12px calc(8px + env(safe-area-inset-bottom));gap:8px}
     .mcta .btn{min-height:46px;font-size:13.5px;padding:9px 8px;white-space:nowrap;gap:6px}
@@ -722,6 +736,11 @@
     .svc-group{margin-bottom:clamp(34px,9vw,52px)}
     .op-banner img{aspect-ratio:4/3}
     .op-banner figcaption{flex-direction:column;gap:4px;font-size:10px;padding:12px 16px}
+  }
+  @media(max-width:600px){
+    /* логотип (195px) + «Записаться» (108px) + бургер (48px) не влезают в 375px:
+       бургер уезжал за край. CTA на телефоне дублируют нижняя панель .mcta и пункт меню 07 */
+    .head-right .btn{display:none}
   }
 </style>
 </head>
@@ -1287,8 +1306,10 @@
             <input type="text" name="name" placeholder="Имя" autocomplete="name" required>
             <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" autocomplete="tel" inputmode="tel" required>
             <button type="submit" class="btn primary">Получить расчёт</button>
+            <label class="consent"><input type="checkbox" name="pd" required> <span>Даю <a href="dokumenty/files/soglasie-pd.pdf" target="_blank" rel="noopener">согласие на обработку персональных данных</a> в соответствии с <a href="policy/" target="_blank" rel="noopener">политикой</a></span></label>
+            <label class="consent"><input type="checkbox" name="ads"> <span>Согласен(-на) на <a href="dokumenty/files/soglasie-reklama.pdf" target="_blank" rel="noopener">получение рекламной информации</a> — по желанию</span></label>
           </form>
-          <p class="q-agree">Нажимая «Получить расчёт», вы соглашаетесь с <a href="policy/" target="_blank" rel="noopener">политикой обработки персональных данных</a>. Перезвоним в течение 15 минут в рабочее время (пн–вс, 9:00–21:00).</p>
+          <p class="q-agree">Перезвоним в течение 15 минут в рабочее время (пн–вс, 9:00–21:00).</p>
         </div>
         <div class="q-done" id="qDone">
           <div class="big">Спасибо! Заявка принята</div>
@@ -1381,19 +1402,18 @@
     <div class="rail-hint rv"><span>листайте</span><span class="ln"></span><span>→</span></div>
     <div class="rail rv" id="rail">
       
-      <a class="doc" href="vrachi/makovsky/"><figure><img loading="lazy" src="assets/doctors/makovsky.jpg" alt="Маковский Александр Александрович" onerror="this.onerror=null;this.src='https://picsum.photos/seed/d2/600/780?grayscale'"></figure><div class="nm">Маковский Александр Александрович</div><div class="sp">Челюстно-лицевой хирург</div></a>
-      <a class="doc" href="vrachi/norkobilov/"><figure><img loading="lazy" src="assets/doctors/norkobilov.jpg" alt="Норкобилов Тимур Мурадович" onerror="this.onerror=null;this.src='https://picsum.photos/seed/d8/600/780?grayscale'"></figure><div class="nm">Норкобилов Тимур Мурадович</div><div class="sp">Стоматолог-ортопед</div></a>
+      <a class="doc" href="vrachi/makovsky/"><figure><img loading="lazy" src="assets/doctors/makovsky.jpg" alt="Маковский Александр Александрович" onerror="this.onerror=null;this.src='https://picsum.photos/seed/d2/600/780?grayscale'"></figure><div class="nm">Маковский Александр Александрович</div><div class="sp">Челюстно-лицевой хирург, имплантолог</div></a>
+      <a class="doc" href="vrachi/norkobilov/"><figure><img loading="lazy" src="assets/doctors/norkobilov.jpg" alt="Норкобилов Тимур Мурадович" onerror="this.onerror=null;this.src='https://picsum.photos/seed/d8/600/780?grayscale'"></figure><div class="nm">Норкобилов Тимур Мурадович</div><div class="sp">Стоматолог-ортопед · гнатология</div></a>
       <a class="doc" href="vrachi/kundulova/"><figure><img loading="lazy" src="assets/doctors/kundulova.jpg" alt="Кундулова Сияна Камиловна" onerror="this.onerror=null;this.src='https://picsum.photos/seed/d5/600/780?grayscale'"></figure><div class="nm">Кундулова Сияна Камиловна</div><div class="sp">Детский терапевт</div></a>
       <a class="doc" href="vrachi/badmaeva/"><figure><img loading="lazy" src="assets/doctors/badmaeva.jpg" alt="Бадмаева Татьяна Константиновна" onerror="this.onerror=null;this.src='https://picsum.photos/seed/d3/600/780?grayscale'"></figure><div class="nm">Бадмаева Татьяна Константиновна</div><div class="sp">Врач общей практики</div></a>
       <a class="doc" href="vrachi/teas/"><figure><img loading="lazy" src="assets/doctors/teas.jpg" alt="Теас Кристина Александровна" onerror="this.onerror=null;this.src='https://picsum.photos/seed/d1/600/780?grayscale'"></figure><div class="nm">Теас Кристина Александровна</div><div class="sp">Стоматолог-ортопед</div></a>
-      <a class="doc" href="vrachi/pushkina/"><figure><img loading="lazy" src="assets/doctors/pushkina.jpg" alt="Пушкина Екатерина Константиновна" onerror="this.onerror=null;this.src='https://picsum.photos/seed/d4/600/780?grayscale'"></figure><div class="nm">Пушкина Екатерина Константиновна</div><div class="sp">Стоматолог-ортодонт</div></a>
+      <a class="doc" href="vrachi/pushkina/"><figure><img loading="lazy" src="assets/doctors/pushkina.jpg" alt="Пушкина Екатерина Константиновна" onerror="this.onerror=null;this.src='https://picsum.photos/seed/d4/600/780?grayscale'"></figure><div class="nm">Пушкина Екатерина Константиновна</div><div class="sp">Стоматолог-ортодонт · гнатология</div></a>
       <a class="doc" href="vrachi/efimova/"><figure><img loading="lazy" src="assets/doctors/efimova.jpg" alt="Ефимова Евгения Алексеевна" onerror="this.onerror=null;this.src='https://picsum.photos/seed/d6/600/780?grayscale'"></figure><div class="nm">Ефимова Евгения Алексеевна</div><div class="sp">Стоматолог-хирург</div></a>
       <a class="doc" href="vrachi/onoprienko/"><figure><img loading="lazy" src="assets/doctors/onoprienko.jpg" alt="Оноприенко Юлия Александровна" onerror="this.onerror=null;this.src='https://picsum.photos/seed/d7/600/780?grayscale'"></figure><div class="nm">Оноприенко Юлия Александровна</div><div class="sp">Врач-ортодонт</div></a>
       <a class="doc" href="vrachi/tihomirova/"><figure><img loading="lazy" src="assets/doctors/tihomirova.jpg" alt="Тихомирова Маргарита Артемовна" onerror="this.onerror=null;this.src='https://picsum.photos/seed/d9/600/780?grayscale'"></figure><div class="nm">Тихомирова Маргарита Артемовна</div><div class="sp">Стоматолог-терапевт</div></a>
       <a class="doc" href="vrachi/kadyrov/"><figure><img loading="lazy" src="assets/doctors/kadyrov.jpg" alt="Кадыров Абу Бакар Арбиевич" onerror="this.onerror=null;this.src='https://picsum.photos/seed/d10/600/780?grayscale'"></figure><div class="nm">Кадыров Абу Бакар Арбиевич</div><div class="sp">Терапевт, ортопед</div></a>
       <a class="doc" href="vrachi/sednev/"><figure><img loading="lazy" src="assets/doctors/sednev.jpg" alt="Седнев Роман Валерьевич" onerror="this.onerror=null;this.src='https://picsum.photos/seed/d11/600/780?grayscale'"></figure><div class="nm">Седнев Роман Валерьевич</div><div class="sp">Хирург, имплантолог</div></a>
       <a class="doc" href="vrachi/semenistaya/"><figure><img loading="lazy" src="assets/doctors/semenistaya.jpg" alt="Семенистая Марина Сергеевна" onerror="this.onerror=null;this.src='https://picsum.photos/seed/d12/600/780?grayscale'"></figure><div class="nm">Семенистая Марина Сергеевна</div><div class="sp">Стоматолог-терапевт</div></a>
-      <a class="doc" href="vrachi/molchanova/"><figure><img loading="lazy" src="assets/doctors/molchanova.jpg" alt="Молчанова Мария Сергеевна" onerror="this.onerror=null;this.src='https://picsum.photos/seed/d13/600/780?grayscale'"></figure><div class="nm">Молчанова Мария Сергеевна</div><div class="sp">Стоматолог-гигиенист</div></a>
       <a class="doc" href="vrachi/leonchuk/"><figure><img loading="lazy" src="assets/doctors/leonchuk.jpg" alt="Леончук Юрий Владимирович" onerror="this.onerror=null;this.src='https://picsum.photos/seed/d14/600/780?grayscale'"></figure><div class="nm">Леончук Юрий Владимирович</div><div class="sp">Врач общей практики</div></a>
     </div>
   </div>
@@ -1556,9 +1576,11 @@
         <input type="text" name="name" placeholder="Имя" autocomplete="name" required>
         <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" autocomplete="tel" inputmode="tel" required>
         <button type="submit" class="btn primary">Жду звонка</button>
+        <label class="consent"><input type="checkbox" name="pd" required> <span>Даю <a href="dokumenty/files/soglasie-pd.pdf" target="_blank" rel="noopener">согласие на обработку персональных данных</a> в соответствии с <a href="policy/" target="_blank" rel="noopener">политикой</a></span></label>
+        <label class="consent"><input type="checkbox" name="ads"> <span>Согласен(-на) на <a href="dokumenty/files/soglasie-reklama.pdf" target="_blank" rel="noopener">получение рекламной информации</a> — по желанию</span></label>
       </form>
       <div class="c-done" id="cDone">Спасибо! Перезвоним в течение 15 минут в рабочее время.</div>
-      <p class="c-agree">Нажимая «Жду звонка», вы соглашаетесь с <a href="policy/" target="_blank" rel="noopener">политикой обработки персональных данных</a>.</p>
+      <p class="c-agree">Перезвоним в течение 15 минут в рабочее время (пн–вс, 9:00–21:00).</p>
       <div class="c-sub">или напишите нам в мессенджер</div>
       <div class="c-actions">
         <a class="btn primary" data-goal="msgr_click" data-msgr="telegram" href="https://t.me/garmony_stomabot" target="_blank" rel="noopener">Telegram</a>
@@ -1594,7 +1616,7 @@
         <span>ООО «Велнест Форте» · ИНН 7810988085</span>
         <span>Лицензия № Л041-01148-78/01132097</span>
         <a href="policy/">Политика обработки персональных данных</a>
-        <a href="dokumenty/">Документы клиники</a>
+        <a href="dokumenty/">Документы клиники</a> &nbsp;·&nbsp; <a href="vakansii/" style="color:inherit;border-bottom:1px solid var(--hairline)">Вакансии</a>
         <span>Информация на сайте не является публичной офертой</span>
       </div>
     </div>
@@ -1643,6 +1665,7 @@
     var subject = 'Заявка с ' + location.hostname
                 + (data.source ? ' — ' + data.source : '')
                 + (data.quiz_answers ? ' (' + data.quiz_answers + ')' : '')
+                + ' | Согласие на рекламу: ' + (data.ads ? 'да' : 'нет')
                 + utmSuffix();
     try {
       fetch('https://api.calltouch.ru/calls-service/RestAPI/requests/' + CT_SITE_ID + '/register/', {
@@ -1868,7 +1891,7 @@
         answers['2'] ? 'Последний визит: ' + answers['2'] : '',
         answers['3'] ? 'Когда удобно: ' + answers['3'] : ''
       ].filter(Boolean).join('; ');
-      window.__sendLead && window.__sendLead({ source: 'Сайт — квиз-калькулятор', name: answers.name, phone: answers.phone, quiz_answers: qa, company: this.company ? this.company.value : '' });
+      window.__sendLead && window.__sendLead({ source: 'Сайт — квиз-калькулятор', name: answers.name, phone: answers.phone, quiz_answers: qa, ads: this.ads ? this.ads.checked : false, company: this.company ? this.company.value : '' });
       window.__track && window.__track('quiz_complete');
     });
     /* предвыбор услуги из списка услуг */
@@ -1891,7 +1914,7 @@
       e.preventDefault();
       f.style.display = 'none';
       document.getElementById('cDone').style.display = 'block';
-      window.__sendLead && window.__sendLead({ source: 'Сайт — Жду звонка', name: f.name.value, phone: f.phone.value, company: f.company ? f.company.value : '' });
+      window.__sendLead && window.__sendLead({ source: 'Сайт — Жду звонка', name: f.name.value, phone: f.phone.value, ads: f.ads ? f.ads.checked : false, company: f.company ? f.company.value : '' });
     });
   })();
 
@@ -1959,6 +1982,33 @@
       });
     });
   })();
+})();
+</script>
+<!-- Уведомление о cookie и Яндекс.Метрике (ТЗ юриста 2026-07, файл 12) -->
+<div class="ck-note" id="ckNote" hidden role="region" aria-label="Использование cookie">
+  <p>Сайт использует файлы cookie и сервис Яндекс.Метрика для улучшения работы. Продолжая пользоваться сайтом, вы соглашаетесь с обработкой данных: <a href="dokumenty/files/soglasie-yandex-metrika.pdf" target="_blank" rel="noopener">согласие</a>&nbsp;&middot;&nbsp;<a href="policy/">политика</a>.</p>
+  <button type="button" id="ckOk">Хорошо</button>
+</div>
+<style>
+.ck-note{position:fixed;left:14px;right:14px;bottom:14px;z-index:70;background:var(--paper,#FAFAF7);color:var(--ink,#111110);border:1px solid var(--ink,#111110);padding:13px 16px;display:flex;gap:14px;align-items:center;max-width:560px}
+.ck-note p{margin:0;font-size:12.5px;line-height:1.55;flex:1}
+.ck-note a{color:inherit;border-bottom:1px solid currentColor;text-decoration:none}
+.ck-note button{flex:none;border:1px solid var(--ink,#111110);background:var(--ink,#111110);color:var(--paper,#FAFAF7);padding:9px 18px;font:inherit;font-size:13px;cursor:pointer}
+.ck-note[hidden]{display:none}
+.ck-note.up{bottom:calc(78px + env(safe-area-inset-bottom))}
+@media(min-width:700px){.ck-note{left:auto;right:22px;bottom:22px}}
+</style>
+<script>
+(function(){
+  try{ if(localStorage.getItem('gu-ck-ok')) return; }catch(e){}
+  var n=document.getElementById('ckNote'); if(!n) return;
+  n.hidden=false;
+  var m=document.querySelector('.mcta');
+  if(m && getComputedStyle(m).display!=='none') n.classList.add('up');
+  document.getElementById('ckOk').addEventListener('click',function(){
+    try{ localStorage.setItem('gu-ck-ok','1'); }catch(e){}
+    n.remove();
+  });
 })();
 </script>
 </body>

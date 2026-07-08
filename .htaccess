@@ -57,6 +57,9 @@ Options -Indexes
   # Старые карточки врачей WordPress → новый раздел врачей
   RewriteRule ^team(/.*)?$           /vrachi/ [R=301,L]
 
+  # Врачи, ушедшие из клиники (страница удалена) → раздел врачей
+  RewriteRule ^vrachi/molchanova/?$  /vrachi/ [R=301,L]
+
   # Рекомендации пациентам → раздел памяток
   RewriteRule ^rekomendaczii-dlya-paczientov/?$ /pamyatki/ [R=301,L,NE]
 
