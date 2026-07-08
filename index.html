@@ -464,12 +464,7 @@
   .q-agree{margin-top:14px;font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--paper-on-ink-60);max-width:62ch}
   .q-agree a{border-bottom:1px solid currentColor}
   /* чекбоксы согласий (ТЗ юриста 2026-07): обязательное ПДн + опциональная реклама */
-  .consent{display:flex;gap:10px;align-items:flex-start;font-family:var(--mono);font-size:11px;letter-spacing:.04em;line-height:1.5;color:var(--paper-on-ink-60);cursor:pointer;text-align:left}
-  .consent input{width:16px;height:16px;margin-top:1px;flex:none;accent-color:var(--accent);cursor:pointer}
-  .consent a{border-bottom:1px solid currentColor}
-  .q-form .consent,.c-form .consent{grid-column:1/-1;margin:0}
   /* перебиваем габариты полей форм: правила .q-form input / .c-form input идут ниже по каскаду */
-  .q-form .consent input,.c-form .consent input{width:16px;height:16px;min-height:0;padding:0;border:1px solid currentColor}
   .q-done{text-align:center;padding:30px 0 14px;display:none}
   .q-done .big{font-family:var(--serif);font-size:clamp(24px,2.6vw,34px);color:var(--paper);margin-bottom:10px}
   .q-done p{color:var(--paper-on-ink-60);max-width:46ch;margin:0 auto}
@@ -1306,10 +1301,8 @@
             <input type="text" name="name" placeholder="Имя" autocomplete="name" required>
             <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" autocomplete="tel" inputmode="tel" required>
             <button type="submit" class="btn primary">Получить расчёт</button>
-            <label class="consent"><input type="checkbox" name="pd" required> <span>Даю <a href="dokumenty/files/soglasie-pd.pdf" target="_blank" rel="noopener">согласие на обработку персональных данных</a> в соответствии с <a href="policy/" target="_blank" rel="noopener">политикой</a></span></label>
-            <label class="consent"><input type="checkbox" name="ads"> <span>Согласен(-на) на <a href="dokumenty/files/soglasie-reklama.pdf" target="_blank" rel="noopener">получение рекламной информации</a> — по желанию</span></label>
           </form>
-          <p class="q-agree">Перезвоним в течение 15 минут в рабочее время (пн–вс, 9:00–21:00).</p>
+          <p class="q-agree">Нажимая «Получить расчёт», вы соглашаетесь с <a href="policy/" target="_blank" rel="noopener">политикой обработки персональных данных</a>. Перезвоним в течение 15 минут в рабочее время (пн–вс, 9:00–21:00).</p>
         </div>
         <div class="q-done" id="qDone">
           <div class="big">Спасибо! Заявка принята</div>
@@ -1576,11 +1569,9 @@
         <input type="text" name="name" placeholder="Имя" autocomplete="name" required>
         <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" autocomplete="tel" inputmode="tel" required>
         <button type="submit" class="btn primary">Жду звонка</button>
-        <label class="consent"><input type="checkbox" name="pd" required> <span>Даю <a href="dokumenty/files/soglasie-pd.pdf" target="_blank" rel="noopener">согласие на обработку персональных данных</a> в соответствии с <a href="policy/" target="_blank" rel="noopener">политикой</a></span></label>
-        <label class="consent"><input type="checkbox" name="ads"> <span>Согласен(-на) на <a href="dokumenty/files/soglasie-reklama.pdf" target="_blank" rel="noopener">получение рекламной информации</a> — по желанию</span></label>
       </form>
       <div class="c-done" id="cDone">Спасибо! Перезвоним в течение 15 минут в рабочее время.</div>
-      <p class="c-agree">Перезвоним в течение 15 минут в рабочее время (пн–вс, 9:00–21:00).</p>
+      <p class="c-agree">Нажимая «Жду звонка», вы соглашаетесь с <a href="policy/" target="_blank" rel="noopener">политикой обработки персональных данных</a>.</p>
       <div class="c-sub">или напишите нам в мессенджер</div>
       <div class="c-actions">
         <a class="btn primary" data-goal="msgr_click" data-msgr="telegram" href="https://t.me/garmony_stomabot" target="_blank" rel="noopener">Telegram</a>
@@ -1616,7 +1607,7 @@
         <span>ООО «Велнест Форте» · ИНН 7810988085</span>
         <span>Лицензия № Л041-01148-78/01132097</span>
         <a href="policy/">Политика обработки персональных данных</a>
-        <a href="dokumenty/">Документы клиники</a> &nbsp;·&nbsp; <a href="vakansii/" style="color:inherit;border-bottom:1px solid var(--hairline)">Вакансии</a>
+        <a href="dokumenty/">Документы клиники</a>
         <span>Информация на сайте не является публичной офертой</span>
       </div>
     </div>
@@ -1665,7 +1656,6 @@
     var subject = 'Заявка с ' + location.hostname
                 + (data.source ? ' — ' + data.source : '')
                 + (data.quiz_answers ? ' (' + data.quiz_answers + ')' : '')
-                + ' | Согласие на рекламу: ' + (data.ads ? 'да' : 'нет')
                 + utmSuffix();
     try {
       fetch('https://api.calltouch.ru/calls-service/RestAPI/requests/' + CT_SITE_ID + '/register/', {
@@ -1891,7 +1881,7 @@
         answers['2'] ? 'Последний визит: ' + answers['2'] : '',
         answers['3'] ? 'Когда удобно: ' + answers['3'] : ''
       ].filter(Boolean).join('; ');
-      window.__sendLead && window.__sendLead({ source: 'Сайт — квиз-калькулятор', name: answers.name, phone: answers.phone, quiz_answers: qa, ads: this.ads ? this.ads.checked : false, company: this.company ? this.company.value : '' });
+      window.__sendLead && window.__sendLead({ source: 'Сайт — квиз-калькулятор', name: answers.name, phone: answers.phone, quiz_answers: qa, company: this.company ? this.company.value : '' });
       window.__track && window.__track('quiz_complete');
     });
     /* предвыбор услуги из списка услуг */
@@ -1914,7 +1904,7 @@
       e.preventDefault();
       f.style.display = 'none';
       document.getElementById('cDone').style.display = 'block';
-      window.__sendLead && window.__sendLead({ source: 'Сайт — Жду звонка', name: f.name.value, phone: f.phone.value, ads: f.ads ? f.ads.checked : false, company: f.company ? f.company.value : '' });
+      window.__sendLead && window.__sendLead({ source: 'Сайт — Жду звонка', name: f.name.value, phone: f.phone.value, company: f.company ? f.company.value : '' });
     });
   })();
 
@@ -1982,33 +1972,6 @@
       });
     });
   })();
-})();
-</script>
-<!-- Уведомление о cookie и Яндекс.Метрике (ТЗ юриста 2026-07, файл 12) -->
-<div class="ck-note" id="ckNote" hidden role="region" aria-label="Использование cookie">
-  <p>Сайт использует файлы cookie и сервис Яндекс.Метрика для улучшения работы. Продолжая пользоваться сайтом, вы соглашаетесь с обработкой данных: <a href="dokumenty/files/soglasie-yandex-metrika.pdf" target="_blank" rel="noopener">согласие</a>&nbsp;&middot;&nbsp;<a href="policy/">политика</a>.</p>
-  <button type="button" id="ckOk">Хорошо</button>
-</div>
-<style>
-.ck-note{position:fixed;left:14px;right:14px;bottom:14px;z-index:70;background:var(--paper,#FAFAF7);color:var(--ink,#111110);border:1px solid var(--ink,#111110);padding:13px 16px;display:flex;gap:14px;align-items:center;max-width:560px}
-.ck-note p{margin:0;font-size:12.5px;line-height:1.55;flex:1}
-.ck-note a{color:inherit;border-bottom:1px solid currentColor;text-decoration:none}
-.ck-note button{flex:none;border:1px solid var(--ink,#111110);background:var(--ink,#111110);color:var(--paper,#FAFAF7);padding:9px 18px;font:inherit;font-size:13px;cursor:pointer}
-.ck-note[hidden]{display:none}
-.ck-note.up{bottom:calc(78px + env(safe-area-inset-bottom))}
-@media(min-width:700px){.ck-note{left:auto;right:22px;bottom:22px}}
-</style>
-<script>
-(function(){
-  try{ if(localStorage.getItem('gu-ck-ok')) return; }catch(e){}
-  var n=document.getElementById('ckNote'); if(!n) return;
-  n.hidden=false;
-  var m=document.querySelector('.mcta');
-  if(m && getComputedStyle(m).display!=='none') n.classList.add('up');
-  document.getElementById('ckOk').addEventListener('click',function(){
-    try{ localStorage.setItem('gu-ck-ok','1'); }catch(e){}
-    n.remove();
-  });
 })();
 </script>
 </body>
