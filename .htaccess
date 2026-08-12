@@ -59,6 +59,7 @@ Options -Indexes
 
   # Врачи, ушедшие из клиники (страница удалена) → раздел врачей
   RewriteRule ^vrachi/molchanova/?$  /vrachi/ [R=301,L]
+  RewriteRule ^vrachi/leonchuk/?$    /vrachi/ [R=301,L]
 
   # Разделы, убранные с сайта 2026-07-08 (файлы могли остаться на сервере — FTP-деплой не удаляет)
   RewriteRule ^vakansii(/.*)?$            / [R=301,L]
