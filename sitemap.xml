@@ -85,8 +85,14 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://harmonysmile.ru/vrachi/sednev/</loc>
-    <lastmod>2026-07-03</lastmod>
+    <loc>https://harmonysmile.ru/vrachi/dunay/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://harmonysmile.ru/vrachi/yudin/</loc>
+    <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -115,8 +121,8 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://harmonysmile.ru/vrachi/pushkina/</loc>
-    <lastmod>2026-07-08</lastmod>
+    <loc>https://harmonysmile.ru/vrachi/luneva/</loc>
+    <lastmod>2026-07-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -127,8 +133,26 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://harmonysmile.ru/vrachi/skrebtsova/</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://harmonysmile.ru/vrachi/tihomirova/</loc>
     <lastmod>2026-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://harmonysmile.ru/vrachi/moshkina/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://harmonysmile.ru/vrachi/rubcova/</loc>
+    <lastmod>2026-09-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -147,6 +171,18 @@
   <url>
     <loc>https://harmonysmile.ru/vrachi/kundulova/</loc>
     <lastmod>2026-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://harmonysmile.ru/vrachi/pimenov/</loc>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://harmonysmile.ru/vrachi/faley/</loc>
+    <lastmod>2026-09-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

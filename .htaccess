@@ -60,10 +60,15 @@ Options -Indexes
   # Врачи, ушедшие из клиники (страница удалена) → раздел врачей
   RewriteRule ^vrachi/molchanova/?$  /vrachi/ [R=301,L]
   RewriteRule ^vrachi/leonchuk/?$    /vrachi/ [R=301,L]
+  RewriteRule ^vrachi/sednev/?$      /vrachi/ [R=301,L]
+  RewriteRule ^vrachi/pushkina/?$    /vrachi/ [R=301,L]
 
   # Разделы, убранные с сайта 2026-07-08 (файлы могли остаться на сервере — FTP-деплой не удаляет)
   RewriteRule ^vakansii(/.*)?$            / [R=301,L]
   RewriteRule ^dokumenty/prejskurant(/.*)?$ /dokumenty/ [R=301,L]
+
+  # Опечаточный URL памятки, попавший в индекс Google → на настоящую памятку
+  RewriteRule ^pamyatki/molochnyh-zuby/?$ /pamyatki/molochnye-zuby/ [R=301,L,NE]
 
   # Рекомендации пациентам → раздел памяток
   RewriteRule ^rekomendaczii-dlya-paczientov/?$ /pamyatki/ [R=301,L,NE]
